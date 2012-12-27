@@ -1,5 +1,6 @@
 var Db = require('mongodb').Db
-  , Server = require('mongodb').Server;
+  , Server = require('mongodb').Server
+  , BSON = require('mongodb').BSONPure;
   
   
 TodoProvider = function(host, port) {
@@ -38,6 +39,24 @@ TodoProvider.prototype.FindAll = function(callback) {
 		}
 	});
 };
+
+TodoProvider.prototype.FindById = function(id, callback) {
+    this.GetTodos(function (error, collection) {
+        if (error) {
+            callback(error);
+        } else {
+            collection.findOne({ '_id': new BSON.ObjectID(id) }, function (err, item) {
+                if (err) {
+                    callback(error);
+                } else {
+                    callback(null, item);
+                }
+
+            });
+        }
+    });
+};
+
 
 TodoProvider.prototype.Save = function(newTodo, callback) {
 	this.GetTodos(function(error, collection) {

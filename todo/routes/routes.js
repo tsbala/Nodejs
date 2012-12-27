@@ -8,10 +8,10 @@ var todoProvider = new TodoProvider('localhost', 27017);
 
 
 exports.index = function(req, res){
-  res.render('index', { title: '8:29 to London St Pancras from Bedford' });
+  res.render('index', { title: 'Node js sample app' });
 };
 
-exports.todo = function(req, res) {
+exports.todoAll = function(req, res) {
 	todoProvider.FindAll(function(error, todos) {
 		if (todos)  {
 			res.render('todo', 
@@ -23,6 +23,17 @@ exports.todo = function(req, res) {
 	});
 };
 
+exports.todoId = function (req, res) {
+    todoProvider.FindById(req.params.id, function (error, todo) {
+        if (todo) {
+            res.render('todoById', {
+                title: 'Todo by id',
+                todo: todo
+            });
+        }
+    });
+}
+
 exports.saveTodo = function(req, res) {
   var newTodo = {};
   newTodo.text = req.body['todo-text'];
@@ -32,6 +43,18 @@ exports.saveTodo = function(req, res) {
 	}
 	else if (todoItem) {
 		res.redirect('/todo');
+	}
+  });
+};
+
+exports.update = function (req, res) {
+  var todo = {id:req.body['todo-id'], text: req.body['todo-text']};
+  todoProvider.Update(todo, function(error, todoItem) {
+	if (error) {
+		console.log(error);
+	}
+	else if (todoItem) {
+		res.redirect('/todoId/' + todo.id);
 	}
   });
 };

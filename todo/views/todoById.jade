@@ -1,0 +1,10 @@
+extends layout
+
+block content
+ h1 update todo
+ form(action='/update', method='put')
+  p
+   input(type='hidden', name='todo-id', value='#{todo._id}')
+   input(type='text', placeholder='edit todo', name='todo-text', value='#{todo.text}')
+  p
+   input(type='submit', value='Update')

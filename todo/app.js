@@ -26,8 +26,10 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/todo', routes.todo);
+app.get('/todo', routes.todoAll);
+app.get('/todo/:id', routes.todoId);
 app.post('/save', routes.saveTodo);
+app.put('/update', routes.update);
 
 
 http.createServer(app).listen(app.get('port'), function(){
