@@ -70,4 +70,22 @@ TodoProvider.prototype.Save = function(newTodo, callback) {
 	});
 };
 
+TodoProvider.prototype.Update = function (todoToUpdate, callback) {
+    this.GetTodos(function (error, collection) {
+        if (error) {
+            callback(error);
+        } else {
+            collection.update({ '_id': new BSON.ObjectID(todoToUpdate.id) }, todoToUpdate, { safe: true }, function (error) {
+                if (error) {
+                    callback(error);
+                }
+                else {
+                    callback(null, todoToUpdate);
+                }
+            });
+            callback(null);
+        }
+    });
+};
+
 exports.TodoProvider = TodoProvider;

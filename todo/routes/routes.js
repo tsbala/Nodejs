@@ -48,13 +48,13 @@ exports.saveTodo = function(req, res) {
 };
 
 exports.update = function (req, res) {
-  var todo = {id:req.body['todo-id'], text: req.body['todo-text']};
+  var todo = {id:req.params.id, text: req.body['todo-text']};
   todoProvider.Update(todo, function(error, todoItem) {
 	if (error) {
 		console.log(error);
 	}
 	else if (todoItem) {
-		res.redirect('/todoId/' + todo.id);
+		res.redirect('/todo/' + todo.id);
 	}
   });
 };

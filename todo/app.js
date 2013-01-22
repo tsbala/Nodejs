@@ -1,8 +1,3 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , routes = require('./routes/routes')
   , http = require('http');
@@ -29,7 +24,7 @@ app.get('/', routes.index);
 app.get('/todo', routes.todoAll);
 app.get('/todo/:id', routes.todoId);
 app.post('/save', routes.saveTodo);
-app.put('/update', routes.update);
+app.put('/todo/:id', routes.update);
 
 
 http.createServer(app).listen(app.get('port'), function(){

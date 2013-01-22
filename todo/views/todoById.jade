@@ -2,9 +2,9 @@ extends layout
 
 block content
  h1 update todo
- form(action='/update', method='put')
+ form(action='/todo/#{todo._id}', method='POST')
   p
-   input(type='hidden', name='todo-id', value='#{todo._id}')
    input(type='text', placeholder='edit todo', name='todo-text', value='#{todo.text}')
+   input(type='hidden', name='_method', value='PUT')
   p
    input(type='submit', value='Update')
