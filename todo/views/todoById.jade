@@ -1,7 +1,7 @@
 extends layout
 
 block content
- h1 update todo
+ h1 Update todo
  form(action='/todo/#{todo._id}', method='POST')
   p
    input(type='text', placeholder='edit todo', name='todo-text', value='#{todo.text}')

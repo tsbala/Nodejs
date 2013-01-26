@@ -25,6 +25,8 @@ app.get('/todo', routes.todoAll);
 app.get('/todo/:id', routes.todoId);
 app.post('/save', routes.saveTodo);
 app.put('/todo/:id', routes.update);
+app.get('/todo/:id/delete', routes.confirmDelete);
+app.delete('/todo/:id', routes.delete);
 
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -1,0 +1,10 @@
+extends layout
+
+block content
+ h1 Confirm Delete
+ form(action='/todo/#{todo._id}', method='POST')
+  p
+   input(type='text', value='#{todo.text}')
+   input(type='hidden', name='_method', value='delete')
+  p
+   input(type='submit', value='Delete')

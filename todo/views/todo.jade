@@ -11,4 +11,7 @@ block content
   ul
    each todo in todos
     li 
-     a(href='/todo/#{todo._id}') #{todo.text}
+     a(href='/todo/#{todo._id}') #{todo.text} 
+     | -
+     span 
+      a(href='/todo/#{todo._id}/delete') Delete

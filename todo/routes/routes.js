@@ -32,29 +32,51 @@ exports.todoId = function (req, res) {
             });
         }
     });
-}
-
+};
+    
 exports.saveTodo = function(req, res) {
-  var newTodo = {};
-  newTodo.text = req.body['todo-text'];
-  todoProvider.Save(newTodo, function(error, todoItem) {
-	if (error) {
-		console.log(error);
-	}
-	else if (todoItem) {
-		res.redirect('/todo');
-	}
-  });
+    var newTodo = {};
+    newTodo.text = req.body['todo-text'];
+    todoProvider.Save(newTodo, function(error, todoItem) {
+        if (error) {
+          console.log(error);
+        }
+        else if (todoItem) {
+          res.redirect('/todo');
+        }
+    });
 };
 
 exports.update = function (req, res) {
-  var todo = {id:req.params.id, text: req.body['todo-text']};
-  todoProvider.Update(todo, function(error, todoItem) {
-	if (error) {
-		console.log(error);
-	}
-	else if (todoItem) {
-		res.redirect('/todo/' + todo.id);
-	}
-  });
+    var todo = {id:req.params.id, text: req.body['todo-text']};
+    todoProvider.Update(todo, function(error, todoItem) {
+        if (error) {
+          console.log(error);
+        }
+        else if (todoItem) {
+          res.redirect('/todo/' + todo.id);
+        }
+    });
+};
+
+exports.confirmDelete = function(req, res) {
+    todoProvider.FindById(req.params.id, function (error, todo) {
+        if (todo) {
+            res.render('todoDelete', {
+                title: 'Confirm delete',
+                todo: todo
+            });
+        }
+    });    
+};
+
+exports.delete = function(req, res) {
+    todoProvider.Delete(req.params.id, function(error) {
+        if (error) {
+          console.log(error);
+        } 
+        else {
+          res.redirect('/todo');
+        }
+    });
 };

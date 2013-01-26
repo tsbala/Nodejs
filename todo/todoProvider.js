@@ -83,7 +83,23 @@ TodoProvider.prototype.Update = function (todoToUpdate, callback) {
                     callback(null, todoToUpdate);
                 }
             });
-            callback(null);
+        }
+    });
+};
+
+TodoProvider.prototype.Delete = function (id, callback) {
+    this.GetTodos(function (error, collection) {
+        if (error) {
+            callback(error);
+        } else {
+            collection.remove({ '_id': new BSON.ObjectID(id) }, function (error) {
+                if (error) {
+                    callback(error);
+                }
+                else {
+                    callback(null);
+                }
+            });
         }
     });
 };
